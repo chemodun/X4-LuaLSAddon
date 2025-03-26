@@ -7,7 +7,7 @@ This addon is designed to enhance the development experience for Lua scripting i
 
 The [addon manager](https://luals.github.io/wiki/addons/#addon-manager) for VS Code allows users to easily install and manage their addons. The addons are pulled from [LLS-Addons](https://github.com/LuaLS/LLS-Addons).
 
-For other cases please refer to the documentation for the Lua Language Server.
+For other cases please refer to the [Addon documentation](https://github.com/LuaLS/lua-language-server/wiki/Addons).
 
 ## Progress
 
