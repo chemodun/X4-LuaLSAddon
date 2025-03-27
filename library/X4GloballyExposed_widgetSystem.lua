@@ -41,26 +41,23 @@ function CloseDropDownOptions(dropdownID) end
 ---@return boolean
 function ConfirmEditBoxInput(editboxID) end
 
--- Wrapper for widgetSystem.queueShapeDraw with parameter transformation
+-- Global access to widgetSystem.queueShapeDraw with parameter transformation
 -- Mapped from: widgetSystem.queueShapeDraw
 -- Source: widget_fullscreen.lua
--- Parameter transformation: Prepends fixed parameters: "circle"
 ---@param ... any
 ---@return any
 function DrawCircle(...) end
 
--- Wrapper for widgetSystem.queueShapeDraw with parameter transformation
+-- Global access to widgetSystem.queueShapeDraw with parameter transformation
 -- Mapped from: widgetSystem.queueShapeDraw
 -- Source: widget_fullscreen.lua
--- Parameter transformation: Prepends fixed parameters: "rectangle"
 ---@param ... any
 ---@return any
 function DrawRect(...) end
 
--- Wrapper for widgetSystem.queueShapeDraw with parameter transformation
+-- Global access to widgetSystem.queueShapeDraw with parameter transformation
 -- Mapped from: widgetSystem.queueShapeDraw
 -- Source: widget_fullscreen.lua
--- Parameter transformation: Prepends fixed parameters: "triangle"
 ---@param ... any
 ---@return any
 function DrawTriangle(...) end
@@ -197,9 +194,8 @@ function HideTriangle(id) end
 -- Global access to widgetSystem.isFullscreenMode
 -- Mapped from: widgetSystem.isFullscreenMode
 -- Source: widget_fullscreen.lua
----@param ... any # Original function parameters unknown
 ---@return any
-function IsFullscreenWidgetSystem(...) end
+function IsFullscreenWidgetSystem() end
 
 -- Global access to widgetSystem.removeHelpOverlay
 -- Mapped from: widgetSystem.removeHelpOverlay
