@@ -24,44 +24,50 @@ function ActivatePassiveDroneAbilities() end
 
 -- Tries to add the specified amount of the ammo to the defensible. Returns actually added amount.
 -- Notes: --   Added "checkonly" parameter in 4.00 Beta 4
----@param defensible any
----@param ammomacroname any
----@param amount any
----@param checkonly? any
----@return addedamount
+---@param defensible number defensible is a componentid
+---@param ammomacroname string The macro name of the ammo to add
+---@param amount number Amount to add
+---@param checkonly boolean unknown
+---@return number addedamount
 function AddAmmo(defensible, ammomacroname, amount, checkonly) end
 
 -- Adds the specified amount of the ware to the object.
----@param containerID any
----@param ware any
----@param amount any
-function AddCargo(containerID, ware, amount) end
+---@param containerid number containerid is a component id 
+---@param ware string The ware id as seen in wares.xml
+---@param amount number Amount to add
+---@return void
+function AddCargo(containerid, ware, amount) end
 
 -- Adds the specified amount of the ware to the inventory of the entity.* Optionally flag this as the result of crafting.
 -- Notes: --   Added "crafting" parameter in 4.00 Beta 4
----@param entityID any
----@param ware any
----@param amount any
----@param crafting? any
-function AddInventory(entityID, ware, amount, crafting) end
+---@param entityid? number entityid is a componentid, can be null 
+---@param ware string The ware id as seen in wares.xml
+---@param amount number Amount to add
+---@param crafting boolean Whether the game treats the added wares as crafted
+---@return void
+function AddInventory(entityid, ware, amount, crafting) end
 
 -- Adds the item to the specified library, if not yet added.
----@param library any
----@param item any
+---@param library string name of the library
+---@param item string The items macro name
+---@return void
 function AddKnownItem(library, item) end
 
 -- Adds the licence of the specified type of the licencefaction to the faction
----@param faction any
----@param licencetype any
----@param licencefaction any
+---@param faction number
+---@param licencetype string
+---@param licencefaction string
+---@return void
 function AddLicence(faction, licencetype, licencefaction) end
 
 -- Adds text as a logbook entry in the specified category.
----@param category any
----@param text any
----@param interaction? any
----@param interactioncomponent? any
-function AddLogbookEntry(category, text, interaction, interactioncomponent) end
+---@param category string
+---@param text string?
+---@param interaction string?
+---@param interactioncomponent string?
+---@param title string
+---@return void
+function AddLogbookEntry(category, text, interaction, interactioncomponent, title) end
 
 -- Adds or removes the specified amount to the entity account
 ---@param entityID any
@@ -83,10 +89,11 @@ function AddTradeToShipQueue(tradeID, containerID, amount) end
 
 -- Triggers MD/AI event condition <event\_ui\_triggered />.
 -- Notes: --   optional screenparam parameter added in 4.00 RC 2
----@param screen any
----@param control any
----@param screenparam? any
-function AddUITriggeredEvent(screen, control, screenparam) end
+---@param screen string
+---@param control string
+---@param component number?
+---@return void
+function AddUITriggeredEvent(screen, control, component) end
 
 -- Adds or removes the specified amount of units to/from the defensible. Units can be flagged unavailable.
 ---@param defensibleID any
@@ -133,9 +140,10 @@ function CancelConversation() end
 
 -- Checks if trade is possible for the specified container.
 -- Notes: --   It may be necessary to call **SetVirtualCargoMode** on containerID first, if the container has a shopping queue.
----@param tradeID any
----@param containerID any
----@param amount any
+---@param tradeID number
+---@param containerID number
+---@param amount number
+---@return bool
 function CanTradeWith(tradeID, containerID, amount) end
 
 -- Checks whether live data is available for the specified object or zone.
@@ -188,7 +196,8 @@ function ClearTradeQueue(containerID) end
 function CompareJumpRoute(numgates, numjumps, othernumgates, othernumjumps) end
 
 -- Converts a luaID to a 64-bit integer, e.g.to interface with an FFI function.
----@param luaID any
+---@param luaID number
+---@return number
 function ConvertIDTo64Bit(luaID) end
 
 -- Formats number into a string with a given accuracy, thousand seperators, trailing spaces to offset SI prefixes and colored SI prefixes.
@@ -211,22 +220,22 @@ function ConvertMissionLevelString(difficulty) end
 function ConvertMissionTypeString(missiontype) end
 
 -- Formats a money value into a string with a given accuracy, thousand seperators, credit cents, trailing spaces to offset SI prefixes and colored SI prefixes.
----@param money any
----@param showcents? any
----@param separators? any
----@param accuracy? any
----@param notrailingspaces? any
----@param colorprefix? any
----@return string
-function ConvertMoneyString(money, showcents, separators, accuracy, notrailingspaces, colorprefix) end
+---@param money number The money amount including cents
+---@param showcents? boolean Toggles cents in the output string if true
+---@param separators? boolean Formats output string for example 1000000 -> 1,000,000
+---@param accuracy? number
+---@param notrailingspaces? boolean
+---@return string money Output money string with options applied from input params
+function ConvertMoneyString(money,showcents, separators, accuracy, notrailingspaces, colorprefix) end
 
 -- Converts a string representing a 64-bit value to a 64-bit integer.
----@param 64BitStringID any
+---@param 64BitStringID string String type of the componentid 
+---@return 64BitID number
 function ConvertStringTo64Bit(64BitStringID) end
 
 -- Converts a string representing a 64-bit value to a luaID, e.g. to pass it to MD/AI as a component.
----@param 64BitStringID any
----@return luaID
+---@param 64BitStringID string String type of the componentid 
+---@return luaID number 
 function ConvertStringToLuaID(64BitStringID) end
 
 -- Formats a time value in seconds into a string in the provided format.
@@ -280,6 +289,12 @@ function CreateInteractionDescriptor2(param1, param2) end
 ---@param objectmacro any
 ---@param backgroundmacro? any
 function CreateObjectInPresentationCluster(objectmacro, backgroundmacro) end
+
+-- Log message to X4 debug log with the =ERROR= tag
+---@param text string
+---@return void
+function DebugError(text) end
+
 
 -- Resets the profile timer. Call this function at the start of the section which you want to profile.
 function DebugProfileStart() end
@@ -743,8 +758,9 @@ function GetCommanderEntity(controllableID) end
 --   Entity "isitemtrader" property added in 4.00 Beta 3
 --   Ship "isdocked" property added in 4.00 Beta 5
 --   Ship "isdocking" property added in 4.00 Beta 5
----@param componentID any
----@param ... any
+---@param componentID number The id of the component
+---@param ... strings One or more component properties as strings
+---@return any? ...
 function GetComponentData(componentID, ...) end
 
 -- Returns the name of the component. Iff the component is an object the name is formatted accordingly to the given parameters.
@@ -762,10 +778,11 @@ function GetComponentName(componentID, fontname, fontsize, availablewidth, omitf
 function GetConfineMouseOption() end
 
 -- Returns an array* *of objects owned by the specified faction. Optionally results can be confined to a specified space.
----@param faction any
----@param space? any
----@return objectIDArray
-function GetContainedObjectsByOwner(faction, space) end
+
+---@param faction string
+---@param componentid number
+---@return table objectIDArray
+function GetContainedObjectsByOwner(faction, componentid) end
 
 -- Returns an array of ships in the specified space or the galaxy.
 ---@param space? any
@@ -980,6 +997,11 @@ function GetExtensionList() end
 ---@param personal any
 ---@return string
 function GetExtensionUpdateWarningText(extensionid, personal) end
+
+---@param factionid number
+---@param ... string
+---@return ...?
+function GetFactionData(factionid, ...) end
 
 -- Returns current fov setting.
 ---@return number
@@ -1214,7 +1236,7 @@ function GetLegacyShadersOption() end
 --   [2] = { ... }
 -- }
 -- ```
----@param library any
+---@param library string
 ---@return libraryTable
 function GetLibrary(library) end
 
@@ -1363,8 +1385,9 @@ function GetMacroBuildSlotResources(macro, sequence, stage) end
 --   "scanlevel" property added in 4.00 RC 1
 --   as of 4.00 RC 1 "storagetags" no longer returns "fuel", if the queried object contains another storage type as well
 --   "storagenames" property added in 4.22 Beta 2 (VR: 4.22)
----@param macro any
----@param ... any
+---@param macro string
+---@param ... string
+---@return ... any?
 function GetMacroData(macro, ...) end
 
 -- Returns the capacity of unit storage on the specified macro build slot.
@@ -1422,16 +1445,39 @@ function GetMissionOfferAtConnection(componentID, templateConnectionName) end
 -- Notes: 
 --   4.10 Beta 5: added offercomponent return value
 --   4.31 Beta 1: removed fontname, fontsize, and textwidth parameters
----@param offerID any
----@param fontname any
----@param fontsize any
----@param textwidth any
-function GetMissionOfferDetails(offerID, fontname, fontsize, textwidth) end
+---@param offerid number
+---@return string name
+---@return string description
+---@return string difficulty
+---@return string threadtype
+---@return string maintype
+---@return string subtype
+---@return string subtypename
+---@return string faction
+---@return string rewardmoney
+---@return string rewardtext
+---@return string briefingobjectives
+---@return string activebriefingstep
+---@return string briefingmissions
+---@return string oppfaction
+---@return string licence
+---@return string missiontime
+---@return string duration
+---@return string abortable
+---@return string guidancedisabled
+---@return string associatedcomponent
+---@return string alertLevel
+---@return string offeractor
+---@return string offercomponent
+function GetMissionOfferDetails(offerid) end
 
 -- Returns the module type of the specified destructible.
----@param destructibleID any
----@return type
-function GetModuleType(destructibleID) end
+---@param component number
+---@return string
+function GetModuleType(component) end
+
+---@return bool
+function GetMouseLookToggleOption() end
 
 -- Returns the needed resources of the specified buildmodule.
 -- Detailed: `resourceTable`
@@ -1471,13 +1517,13 @@ function GetNotificationDetails(notificationID) end
 function GetNotUpgradesByClass(destructibleID, class) end
 
 -- Return the blackboard variable "valueName" from the blackboard of the specified entity.
----@param entityID any
----@param valueName any
----@return value
-function GetNPCBlackboard(entityID, valueName) end
+---@param entityID number
+---@param valueName string
+---@return any?
+function GetNPCBlackboard(valueName, valueName) end
 
 -- Returns an array of entities in the specified desctructible.
----@param destructibleID any
+---@param destructibleID number
 ---@return entityIDArray
 function GetNPCs(destructibleID) end
 
@@ -1487,18 +1533,22 @@ function GetNPCs(destructibleID) end
 ---@return entityIDArray
 function GetNPCsInSectorOnStations(sectorID, distance) end
 
+---@param amount number Players money
+---@return number Amount the player can afford
+function GetNumAffordableTradeItems(amount) end
+
 -- Returns the number of incoming remote transport wares for specified type.
 ---@param wareType any
 ---@return int
 function GetNumIncomingRemoteWares(wareType) end
 
 -- Returns the number of logbook entries, optionally filtered by the given category.
----@param category? any
----@return int
+---@param category string
+---@return number
 function GetNumLogbook(category) end
 
--- Returns the number of accecpted missions.
----@return int
+-- Returns the number of accepted missions.
+---@return number
 function GetNumMissions() end
 
 -- Returns information of all damaged subsystems of the specified container.*
@@ -1527,6 +1577,21 @@ function GetNumMissions() end
 ---@return subsystemsTable
 function GetObjectRepairStatus(containerID) end
 
+---@param rendertarget number
+---@return number OffsetX
+---@return number OffsetY
+function GetOffset(rendertarget) end
+
+---@param component number
+---@param failureid number
+---@return table
+function GetOrderFailureParams(component, failureid) end
+
+---@param component number
+---@param index number
+---@return table
+function GetOrderParams(component, index) end
+
 -- Returns information* *of the own licences the specified faction offers.
 -- Detailed: `licenceTable`
 -- ```lua
@@ -1543,7 +1608,7 @@ function GetObjectRepairStatus(containerID) end
 --   [2] = { ... }
 -- }
 -- ```
----@param faction any
+---@param faction string
 ---@return licenceTable
 function GetOwnLicences(faction) end
 
@@ -1566,8 +1631,8 @@ function GetPlayerActivity() end
 function GetPlayerAmmoCount(macro) end
 
 -- Returns the context of the player with the specified class, if any.
----@param class any
----@return contextID
+---@param class string
+---@return number?
 function GetPlayerContextByClass(class) end
 
 -- Returns the number of drone slots on the player ship.
@@ -1606,11 +1671,11 @@ function GetPlayerEnvironmentObject() end
 --   [ware2] = { ... }
 -- }
 -- ```
----@return wareTable
+---@return table wareTable 
 function GetPlayerInventory() end
 
 -- Returns the amount of money in the player account.
----@return money
+---@return number money
 function GetPlayerMoney() end
 
 -- Returns the macro of the cockpit currently installed in the player ship.
@@ -1862,6 +1927,10 @@ function GetShaderQualityOption() end
 ---@return int
 function GetShadowOption() end
 
+---@param infotable table
+---@return table
+function GetShiftStartEndRow(infotable) end
+
 -- Returns information about the trade queue of the specified container.
 -- Detailed: `shoppingListTable`
 -- ```lua
@@ -2033,8 +2102,8 @@ function GetTotalValue(containerID, sellprice, referenceContainerID) end
 --   expire = trade expire time
 -- }
 -- ```
----@param trade any
----@return tradeData
+---@param trade number
+---@return tradeData table
 function GetTradeData(trade) end
 
 -- Returns an array of player known trades, optionally indexed by id strings.
@@ -2304,9 +2373,10 @@ function GetWareCapacity(containerID, ware, ignoreexisting = true) end
 --   "isweaponmod" property added in 4.00 Beta 4
 --   "isammo" property added in 4.00 Beta 4
 --   "issinglecraft" property added in 4.00 Beta 5
----@param ware any
----@param ... any
-function GetWareData(ware, ...) end
+---@param ware string
+---@param ... string
+---@return ... any
+function GetWareData(ware , ...) end
 
 -- Returns information about possible ware exchange trade between the two trade partners.*
 -- Detailed: `tradeDataArray`
@@ -2451,14 +2521,14 @@ function IsCheatVersion() end
 
 -- Checks whether the specified component is of the given class.
 ---@param componentID any
----@param classname any
+---@param classname string
 ---@return bool
 function IsComponentClass(componentID, classname) end
 
 -- Checks whether the specified component is under construction.
----@param componentiD any
+---@param componentID any
 ---@return bool
-function IsComponentConstruction(componentiD) end
+function IsComponentConstruction(componentID) end
 
 -- Checks whether the specified component is operational.
 ---@param componentID any
@@ -2543,12 +2613,16 @@ function IsSteamworksEnabled() end
 ---@return bool
 function IsValidComponent(componentID) end
 
--- Check whether the specified ware is illegal for the given licencefaction. Optionally checks against a specified police faction.
----@param ware any
----@param licencefaction any
----@param policefaction? any
+---@param frame table
 ---@return bool
-function IsWareIllegalTo(ware, licencefaction, policefaction) end
+function IsValidWidgetElement(frame) end
+
+-- Check whether the specified ware is illegal for the given licencefaction. Optionally checks against a specified police faction.
+---@param ware string
+---@param licensefaction string
+---@param policefaction string
+---@return bool
+function IsWareIllegalTo(ware, licensefaction, policefaction) end
 
 -- Ends the interact menu interaction.
 -- Notes: --   **DEPRECATED** - use FFI function LeaveInteractMenu() instead
@@ -2556,16 +2630,20 @@ function IsWareIllegalTo(ware, licencefaction, policefaction) end
 function LeaveInteractMenu() end
 
 -- Raises a lua event for the next input instead of evaluating that input. Event names are: "keyboardInput", "mousebuttonsInput", "joyaxesInputPosSgn\[1-8\]", "joyaxesInputNegSgn\[1-8\]", "joybuttonsInput\[1-8\]"
-function ListenForInput() end
+---@param enable boolean
+---@return void
+function ListenForInput(enable) end
 
 -- Loads the specified savegame.
----@param filename any
+---@param filename string
+---@return void
 function LoadGame(filename) end
 
 -- Load the specified input profile.
----@param filename any
----@param personal any
-function LoadInputProfile(filename, personal) end
+---@param inputmap string
+---@param personal boolean
+---@return void
+function LoadInputProfile(inputmap, personal) end
 
 -- Move the specified* *component to the top of the repair queue of the entity.
 ---@param entityID any
@@ -2603,6 +2681,11 @@ function Pause(explicit) end
 -- Play the credits.
 function PlayCredits() end
 
+-- Play a sound.
+---@param soundid string
+---@return void
+function PlaySound(soundid) end
+
 -- Checks whether the specified key is part of the player ship. Possible keys are: "trademk1", "trademk2", "trademk3"
 ---@param key any
 ---@return bool
@@ -2631,8 +2714,8 @@ function QuitGame() end
 function QuitModule() end
 
 -- Returns text if it exists, error message otherwise.
----@param page any
----@param line any
+---@param page number
+---@param line number
 ---@return text
 function ReadText(page, line) end
 
@@ -2665,8 +2748,9 @@ function RemoveCargo(containerID, ware, amount) end
 
 -- Removes the specified amount of the ware from the inventory of the entity.
 ---@param entityID any
----@param ware any
----@param amount any
+---@param ware string
+---@param amount number
+---@return void
 function RemoveInventory(entityID, ware, amount) end
 
 -- Removes the logbook entry at index.
@@ -3093,8 +3177,9 @@ function SetViewDistanceOption(distance) end
 -- Sets the specified container to virtual cargo mode. Using its trade queue to predict future cargo and unit availability.
 -- Notes: --   Virtual cargo mode should be disabled again when leaving the current menu.
 ---@param containerID any
----@param onoff any
-function SetVirtualCargoMode(containerID, onoff) end
+---@param onoff boolean
+---@param unknown? number
+function SetVirtualCargoMode(containerID, onoff, unknown) end
 
 -- Sets the volume setting of the specified type.
 ---@param volumetype any
@@ -3203,7 +3288,8 @@ function TransferPlayerMoneyTo(amount, entityID) end
 function TruncateText(text, fontname, fontsize, width, wordwrap, textheight) end
 
 -- Uninstalls the specified steam dlc.
----@param appid any
+---@param appid string
+---@return void
 function UninstallSteamDLC(appid) end
 
 -- Unpause the game.* If the explicit flag is set to true, this will unpause the game as if the pause key was hit.
@@ -3214,7 +3300,13 @@ function Unpause(explicit) end
 -- Notes: --   **UNSUPPORTED.** Not designed to be used by mods.
 ---@param addonname any
 ---@param groupid = ""? any
+---@return void
 function UnregisterAddonBindings(addonname, groupid = "") end
+
+---@param eventid string
+---@param callback function
+---@return void
+function UnregisterEvent(eventid, callback) end
 
 -- Unregisters the specified elemnent (and all its children) from mouse/pointer picking interactions.
 ---@param element any
@@ -3235,9 +3327,22 @@ function UnsetMouseOverride(element) end
 ---@param element any
 function UnsetPointerOverride(element) end
 
+---@return void
+function UnsuspendConversation() end
+
 -- Upgrade the specified destructible with the given upgrade level.
 ---@param destructibleID any
 ---@param upgradetype any
 ---@param level any
 function UpgradeObject(destructibleID, upgradetype, level) end
 
+---@param framedesc table
+---@param surpressdisplayerrors boolean
+---@param hasplayercontrols boolean
+---@param useminiwidgetsystem boolean
+---@param startanimation boolean
+---@param keephudvisible boolean
+---@param keepcrosshairvisible boolean
+---@param showtickerpermanently boolean
+---@return table
+function UpdateFrame(framedesc, surpressdisplayerrors, hasplayercontrols, useminiwidgetsystem, startanimation, keephudvisible, keepcrosshairvisible, showtickerpermanently) end
